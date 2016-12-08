@@ -1,0 +1,2 @@
+$meta_values = get_post_meta( 2338, 'builder', true );
+echo get_term_field('name', $meta_values, 'builder' );
