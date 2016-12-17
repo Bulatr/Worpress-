@@ -1,0 +1,23 @@
+$querykvartira = new WP_Query( array(
+    'post-type' => 'property',
+    'posts_per_page' => 999999,
+	'tax_query' => array(
+		array(
+			'taxonomy' => 'property-type',
+            'field' => 'id',
+            'terms' => 55
+			
+		)
+	)
+) );
+
+$countkvart = 0;
+if ( $querykvartira->have_posts() ) :
+    while ( $querykvartira->have_posts() ) :
+        $querykvartira->the_post();
+        echo '<li>' . get_the_title() . '</li>';
+        $countkvart++;
+    endwhile;
+    wp_reset_query();
+endif;
+echo 'Квартиры :'. $countkvart;
