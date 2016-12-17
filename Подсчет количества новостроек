@@ -1,0 +1,33 @@
+/*   - - - - - -   Подсчет новостроек    - - - - - -    */
+$property_listing_args = array(
+                            'post_type' => 'property',
+                            'posts_per_page' => 999999,
+                                 'meta_query' => array(
+                                                'relation' => 'AND',
+                                                array(
+                                                    'key' => 'vid_obj',
+                                                    'value' => 'newproperty'
+                                                    )
+                    
+		                                          )
+                        );
+$count = 0;
+$property_listing_query = new WP_Query( $property_listing_args );
+
+// Цикл
+if ( $property_listing_query->have_posts() ) {
+	while ( $property_listing_query->have_posts() ) {
+		$property_listing_query->the_post();
+		echo '<li>' . get_the_title() . '</li>';
+        $count++;
+	}
+} else {
+	// Постов не найдено
+}
+/* Возвращаем оригинальные данные поста. Сбрасываем $post. */
+wp_reset_postdata();
+
+
+echo 'Новостроек: '. $count.'<br/>';
+wp_reset_query();
+/*   - - - - - -   Конец подсчета новостроек    - - - - - -    */
